@@ -1,23 +1,29 @@
 ---
-title: mesheryctl-workspace
+title: mesheryctl-workspace-update
 display_title: false
 command: workspace
-subcommand: nil
+subcommand: update
 categories: [mesheryctl-workspace]
 ---
 
-# mesheryctl workspace
+# mesheryctl workspace update
 
-Manage workspaces under an organization
+Update a workspace
 
 ## Synopsis
 
-Create, list of workspaces under an organization
+Update a workspace's name and/or description by its ID.
+At least one of --name or --description must be provided; neither can be set
+to an empty value (clearing a description is not currently supported by the
+server).
+--orgId must match the workspace's current organization. The CLI checks this
+before updating the workspace; it does not move the workspace to a different
+organization or grant update permission.
 
 <pre class='codeblock-pre'>
 <div class='codeblock'>
 <div class='clipboardjs'>
-mesheryctl workspace [flags]
+mesheryctl workspace update [workspace-id] [flags]
 
 </div>
 </div>
@@ -25,27 +31,27 @@ mesheryctl workspace [flags]
 
 ## Examples
 
-To view a list workspaces
+Rename a workspace
 <pre class='codeblock-pre'>
 <div class='codeblock'>
 <div class='clipboardjs'>
-mesheryctl workspace list --orgId [orgId]
+mesheryctl workspace update [workspace-id] --orgId [orgId] --name [new-name]
 
 </div>
 </div>
 </pre> 
 
-To create a workspace
+Update a workspace's description
 <pre class='codeblock-pre'>
 <div class='codeblock'>
 <div class='clipboardjs'>
-mesheryctl workspace create --orgId [orgId] --name [name] --description [description]
+mesheryctl workspace update [workspace-id] --orgId [orgId] --description [new-description]
 
 </div>
 </div>
 </pre> 
 
-To update a workspace
+Update both
 <pre class='codeblock-pre'>
 <div class='codeblock'>
 <div class='clipboardjs'>
@@ -59,8 +65,10 @@ mesheryctl workspace update [workspace-id] --orgId [orgId] --name [new-name] --d
 
 <pre class='codeblock-pre'>
 <div class='codeblock'>
-      --count   total number of registered workspaces
-  -h, --help    help for workspace
+  -d, --description string   New description for the workspace
+  -h, --help                 help for update
+  -n, --name string          New name for the workspace
+      --orgId string         (required) organization ID - must match the workspace's current organization
 
 </div>
 </pre>
